@@ -1,0 +1,164 @@
+
+\RequirePackage{bbm}
+%=== Our macros
+
+\newcommand{\rv}[1]{\uppercase{#1}}
+\newcommand{\sVec}[1]{\bm{#1}}         % Stacked vector
+
+
+% Algorithm
+\newcommand{\algrule}[1][.2pt]{\par\vskip.5\baselineskip\hrule height #1\par\vskip.5\baselineskip}
+
+\newcommand\ts[1]{\textcolor{blue}{TS: #1}}             % Notes added by Thomas
+\newcommand\fl[1]{\textcolor{red}{FL: #1}}              % Notes added by Fredrik
+
+% Ignore notes
+% \newcommand\ts[1]{}               % Notes added by Thomas
+% \newcommand\fl[1]{}               % Notes added by Fredrik
+
+\newcommand\reals{\mathbb{R}}
+\newcommand\intrange[1]{#1,\,\pgfmathparse{int(#1+1)}\pgfmathresult,\,\dots} % Prints x,x+1,..., e.g. 1,2,... or 0,1,... with correct spaces
+\newcommand{\range}[2]{#1, \, \dots, \, #2}      % Range = 1, ..., N
+\newcommand{\crange}[2]{\{#1, \, \dots, \, #2\}} % Curly range = {1, ..., N}
+\newcommand{\prange}[2]{(#1, \, \dots, \, #2)}   % Parentheses range = (1, ..., N)
+\newcommand{\bwdrange}[2]{#1 : -1 : #2}          % Range = N, ..., 1
+
+\newcommand\I{\mathbbm{1}}
+\renewcommand\mid{\,\vert\,} % I don't really like that \mid produces rubber lengths. Sometimes, we get very large white spaces p(x    |   y), and it can produce line breaks after "p(x |" . Is the non-rubber definition here better?
+\newcommand\cmid{\,\middle\vert\,} % Stretchable |, to use with \left \right - N.B. This produces a longer | in general. Does that look better than a standard \mid?
+\newcommand\thsnd[1]{{#1}\thinspace000}     % X 000
+\newcommand\iterates[2]{{#1}[#2]}         % Iterates
+\newcommand\iteratesPE[2]{{#1}_{#2}}     % Iterates - Prediction error
+\newcommand\diag{\text{diag}}
+
+
+\newcommand\imp[1]{\alert{\textbf{#1}}}
+
+
+%=== State-space models
+\newcommand{\f}{f}                                  % transition density
+\newcommand{\g}{g}                                % observation density
+
+\newcommand{\nTh}{n_{\theta}}              % Dimension of the unknown parameter
+
+\newcommand{\allX}{X}                            % Compact notation for all state variables x_{1:\T}
+\newcommand{\allY}{Y}                            % Compact notation for all measurements y_{1:\T}
+
+\newcommand{\setX}{\ensuremath{\mathcal{X}}}                      % State-space X
+\newcommand{\setU}{\ensuremath{\mathcal{U}}}                      % Auxiliary variables U
+\newcommand{\setTh}{\ensuremath{\Theta}}           % The space for the unknown parameters 
+
+%=== MC/MCMC
+\newcommand\prior{p}              % Prior density
+\newcommand\proposal{q}           % Proposal density
+\newcommand\proposala{r}          % ALternative proposal density (if q is taken)
+\newcommand{\target}{\pi}                % Target distribution in MC methods
+\newcommand{\utarget}{\widetilde{\target}}       % Unnormalized target distribution in MC methods
+\newcommand{\SMCstarget}{\gamma}                % Target distribution for SMC sampler
+\newcommand{\uSMCstarget}{\widetilde{\gamma}}       % Unnormalized target distribution for SMC sampler
+\newcommand{\normalizing}{Z}			% normalizing constant
+\newcommand{\Zhat}{\widehat{\rv{z}}} 					% NC estimate
+\newcommand{\zhat}{\hat z} 					% NC estimate
+
+\newcommand\MCreal[2]{{#1}[{#2}]}                     % State [2] of a Markov chain
+\newcommand\MCpropState[1]{{#1}^{\prime}}     % The state sampled from the proposal. 
+\newcommand{\iMC}{m}                                       % Index for a sample in a Monte Carlo approximation
+\newcommand\iterMC{M}
+\newcommand{\acceptProb}{\alpha}                     % The acceptance probability used in MH for example.
+\newcommand{\MCkernel}{\kappa}         % Transition kernel for Markov chains
+\newcommand{\Bkernel}{\lambda}         % Backward kernel for SMC sampler
+
+
+%=== SMC
+\newcommand{\Np}{N}                         % Numer of samples in a PF approximation
+\newcommand\wf{\omega}                                   % Weight function
+
+\ifx\M\undefined			%For xelatex/pfdlatex compatibility
+\newcommand\M{M}  			% Joint proposal for the ancestor weights and the new particles 
+\else
+\renewcommand\M{M}  
+\fi
+
+\ifx\x\undefined			%For xelatex/pfdlatex compatibility
+\newcommand\x{x}  
+\else
+\renewcommand\x{x}  
+\fi
+
+                                 
+\newcommand\X{\rv{x}}
+\renewcommand\a{a}
+\newcommand\A{\rv{a}}
+\newcommand\uw{\widetilde{w}}                 % Unnormalized weight
+\newcommand\UW{\widetilde{\rv{w}}}                 % Unnormalized weight
+\newcommand\w{w}                             % Normalized weights
+\newcommand\W{\rv{w}}                             % Normalized weights
+\newcommand\bw{\widetilde{w}}             % smoothing weights (realization)
+\newcommand\bx{\widetilde{x}}             % backward state (realization)
+
+\newcommand\XX{\mathbf{\X}}
+\renewcommand\AA{\mathbf{\A}}
+\newcommand\xx{\mathbf{\x}}
+\renewcommand\aa{\mathbf{\a}}
+
+
+\ifx\T\undefined			%For xelatex/pfdlatex compatibility
+\newcommand{\T}{T}                         % Total numer of samples in a set of measurements
+\else
+\renewcommand{\T}{T}
+\fi
+
+
+\newcommand{\NrMC}{M}                 % Numer of samples in a Monte Carlo approximations
+\newcommand{\Q}{\mathcal{Q}}        % Q-function used in the EM algorithm
+\newcommand{\myd}{\text{d}}      % Differential for integrals etc.
+
+
+%=== PMCMC
+\newcommand{\extTarget}{\phi}                 % Extended target distribution using in PMCMC
+\newcommand\pfDist{\psi_{N,T}}
+
+
+\newcommand\likelihood{\mathcal{L}}         % The likelihood
+\newcommand\logLikelihood{\ell}         % The log-likelihood
+
+
+%=== Distributions
+\newcommand{\N}{\mathcal{N}}   % Normal distribution
+\newcommand{\Npdf}[3]{\mathcal{N}\!\left(#1 \cmid #2, #3\right)}
+\newcommand{\Cat}{\mathcal{C}}            % Categorical distribution
+\newcommand{\Uni}{\mathcal{U}}            % Categorical distribution
+%\newcommand{\Cat}[1]{\mathcal{C}\!\left(#1\right)}            % Categorical distribution
+\newcommand{\Catpdf}[3]{\mathcal{C}\!\left(#1\cmid #2, #3\right)}
+\newcommand{\ig}{\mathcal{IG}}              % Inverse gamma distribution
+\newcommand{\nig}{\mathcal{NIG}}         % Normal inverse gamma distribution
+
+
+%=== Operators
+\newcommand{\Exp}[1]{\mathbb{E}\!\left[#1\right]}
+\newcommand{\Expb}[2]{\mathbb{E}_{#1}\!\left[#2\right]}
+\newcommand{\Cov}[1]{\operatorname{Cov}\!\left[#1\right]}
+\newcommand{\Covb}[2]{\operatorname{Cov}_{#1}\!\left[#2\right]}
+\newcommand{\Var}[1]{\operatorname{Var}\!\left[#1\right]}
+\newcommand{\Varb}[2]{\operatorname{Var}_{#1}\!\left[#2\right]}
+\newcommand{\myProb}[1]{\mathbb{P}\!\left(#1\right)}
+\newcommand{\myCProb}[2]{\mathbb{P}\!\left(#1 \cmid #2 \right)} % Conditional probability
+\newcommand{\argmax}[2]{\underset{#1}{\mathrm{arg}\,\mathrm{max}}\,\,#2}
+\newcommand{\argmin}[2]{\underset{#1}{\mathrm{arg}\,\mathrm{min}}\,\,#2}
+\newcommand{\myDirac}[2]{\delta_{#1}(#2)}
+\newcommand{\ConvAS}{\stackrel{\mathrm{a.s.}}{\longrightarrow}}      % Almost sure convergence
+\newcommand{\ConvDist}{\stackrel{\mathrm{d}}{\longrightarrow}}       % Convergence in distribution
+\newcommand{\supp}[1]{\text{supp}\left(#1\right)}                              % The support of a function
+\newcommand{\Tr}{\operatorname{Tr}}                                                  % Trace of a matrix
+\newcommand{\Trb}[1]{\operatorname{Tr}\left(#1 \right)}                     % Trace of a matrix
+\newcommand{\kron}{\otimes}                                                              % Kronecker product 
+\newcommand{\myVec}[1]{\operatorname{Vec}\left(#1\right)}              % Vectorization operator
+\newcommand{\myDet}[1]{\left|#1\right|}                                             % Determinant
+\newcommand{\Transp}{\mathsf{T}}                                                      % Transpose
+\newcommand{\card}[1]{\operatorname{card}\left(#1\right)}                % Cardinality of a set
+\newcommand{\goesto}{\rightarrow}
+
+
+\newcommand{\R}{\mathbb{R}}
+
+

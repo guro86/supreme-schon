@@ -1,0 +1,57 @@
+\RequirePackage{xcolor}
+\RequirePackage{pgf}
+% \RequirePackage{calc}
+% \RequirePackage{geometry}
+% \RequirePackage{float}
+
+\makeatletter
+\definecolor{posterbox@bg}{named}{white}
+\definecolor{posterbox@fg}{named}{black}
+\newsavebox{\poster@box}
+\newlength{\posterboxmargin}
+\let\yboxmargin=\posterboxmargin
+
+\newlength{\poster@box@width}
+\newlength{\poster@box@height}
+\newlength{\poster@box@depth}
+% The default value for the optional parameter gives roughly a circular arc.
+\newcommand{\posterboxmarginroundrect}[2][0.551915]{%
+  \setlength{\posterboxmargin}{0.5em}
+  \settowidth{\poster@box@width}{#2}
+  \settoheight{\poster@box@height}{#2}
+  \settodepth{\poster@box@depth}{#2}
+  \pgfmoveto{\pgfpoint{0cm}{-\poster@box@depth-\posterboxmargin}}
+  \pgfcurveto{\pgfpoint{-#1\posterboxmargin}{-\poster@box@depth-\posterboxmargin}}
+             {\pgfpoint{-\posterboxmargin}{-\poster@box@depth-#1\posterboxmargin}}
+             {\pgfpoint{-\posterboxmargin}{-\poster@box@depth}}
+  \pgflineto{\pgfpoint{-\posterboxmargin}{\poster@box@height}}
+  \pgfcurveto{\pgfpoint{-\posterboxmargin}{\poster@box@height+#1\posterboxmargin}}
+             {\pgfpoint{-#1\posterboxmargin}{\poster@box@height+\posterboxmargin}}
+             {\pgfpoint{0cm}{\poster@box@height+\posterboxmargin}}
+  \pgflineto{\pgfpoint{\poster@box@width}{\poster@box@height+\posterboxmargin}}
+  \pgfcurveto{\pgfpoint{\poster@box@width+#1\posterboxmargin}{\poster@box@height+\posterboxmargin}}
+             {\pgfpoint{\poster@box@width+\posterboxmargin}{\poster@box@height+#1\posterboxmargin}}
+             {\pgfpoint{\poster@box@width+\posterboxmargin}{\poster@box@height}}
+  \pgflineto{\pgfpoint{\poster@box@width+\posterboxmargin}{-\poster@box@depth}}
+  \pgfcurveto{\pgfpoint{\poster@box@width+\posterboxmargin}{-\poster@box@depth-#1\posterboxmargin}}
+             {\pgfpoint{\poster@box@width+#1\posterboxmargin}{-\poster@box@depth-\posterboxmargin}}
+             {\pgfpoint{\poster@box@width}{-\poster@box@depth-\posterboxmargin}}
+  \pgfclosepath
+}
+
+\newenvironment{posterbox}[2]{%
+  \colorlet{posterbox@bg}{#1}\colorlet{posterbox@fg}{#2}%
+  \begin{lrbox}{\poster@box}\begin{minipage}[t]{0.9\columnwidth}\setlength{\parindent}{0em}}
+    {\end{minipage}\end{lrbox}\noindent\ignorespaces%
+  \begin{pgfpicture}{0cm}{0cm}{0cm}{0cm}
+    \posterboxmarginroundrect{\usebox{\poster@box}}
+    \color{posterbox@bg}
+    \pgffill
+    \posterboxmarginroundrect{\usebox{\poster@box}}
+    \pgfsetlinewidth{0.6mm}
+    \color{posterbox@fg}
+    \pgfstroke
+  \end{pgfpicture}%
+  \usebox{\poster@box}
+  \vspace*{\posterboxmargin}\vspace*{1mm}\par\ignorespacesafterend}
+\makeatother

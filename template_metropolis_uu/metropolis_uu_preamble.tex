@@ -1,0 +1,134 @@
+\usetheme[progressbar=frametitle,numbering=fraction,block=fill]{metropolis}
+
+%%% USEFUL PACKAGES
+%\usepackage{showframe} % For debugging positioning
+\usepackage{etex} % If too many packages
+% Encoding and language
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{natbib}
+%\usepackage{booktabs}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{graphicx}
+%\usepackage{caption}
+%\usepackage{animate} % Animations
+\usepackage{bm} % Bold math
+\usepackage{bbm}
+%\usepackage{url}
+%\usepackage{pifont}
+%\usepackage{ulem} % Used for strikeouts \sout
+%\usepackage{stackengine}
+%\usepackage{enumitem}
+%\setlist[description]{leftmargin=\parindent,labelindent=\parindent}
+
+\usepackage{algorithm,caption}
+
+%%% COLORS
+\usepackage{xcolor}
+\definecolor{UURed}{HTML}{BF2D38}
+% Colors derived from UURed, tetraedic at https://www.sessions.edu/color-calculator/
+\definecolor{UUGreen}{HTML}{39BF2D}
+\definecolor{DarkGreen}{HTML}{00B200}
+\definecolor{UUBlue}{HTML}{2D43BF}
+\definecolor{UUBrown}{HTML}{BF712D}
+\definecolor{gold}{rgb}{.812,.710,.231}
+
+%%% USEFUL MACROS
+\setbeamercolor{background canvas}{bg=white}
+% Text markup
+%% UU Colors
+%\setbeamercolor{alerted text}{fg=UURed}
+%\newcommand{\blue}[1]{\textcolor{UUBlue}{#1}}
+%\newcommand{\red}[1]{\textcolor{UURed}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\grey}[1]{\textcolor{gray}{#1}}
+\newcommand{\orange}[1]{\textcolor{mLightBrown}{#1}}
+\newcommand\myheading[1]{\textbf{#1}}
+\newcommand\myemph[1]{\underline{\emph{#1}}}
+\newcommand\textexample[1]{\textit{\textbf{#1}}}
+% Spacing
+\newcommand\vws[1][1]{\vspace{#1\baselineskip}} % vertical white space
+\newcommand\strt[1][1.5ex]{\rule[-.05\baselineskip]{0pt}{#1}} % strut
+\newcommand\Hrule{\vspace{1ex} \hrule \vspace{1ex}} % Horisontal rule with some space after
+% Misc
+\newcommand\articleref[4]{\noindent\begin{minipage}[t]{0.04\textwidth}
+		\vspace{0pt} 
+		\pgfuseimage{beamericonarticle}
+	\end{minipage}%
+	\begin{minipage}[t]{0.96\textwidth}
+		\vspace{0pt}
+		#1. \textbf{#2.} \textit{#3}, #4.
+	\end{minipage}}
+
+%%% METROPOLIS THEME SPECIFIC
+\makeatletter
+\setlength{\metropolis@progressonsectionpage@linewidth}{1pt}
+\makeatother
+%\setbeamercolor{progress bar}{fg=UURed,bg=UURed!50}
+
+%%% GRAPHICS
+\usepackage{graphicx}
+\graphicspath{{./Figures/}}
+
+%%% TEXTPOS
+\usepackage[absolute,overlay]{textpos} % option showboxes is useful in draft mode
+\setlength{\TPHorizModule}{\paperwidth}
+\setlength{\TPVertModule}{\paperheight}
+\textblockorigin{0pt}{10mm} % start everything at top-left, below gray 
+
+%% TIKZ
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc} %,decorations.pathreplacing,backgrounds,positioning,fit,petri}
+
+%%% BLOCKS AND BOXES
+% Changing colors of blocks
+%\setbeamercolor{block title alerted}{bg=UURed,fg=palette primary.fg}
+%\setbeamercolor{block body alerted}{bg=UURed!15}
+\setbeamercolor{block title alerted}{bg=mLightBrown,fg=palette primary.fg}
+\setbeamercolor{block body alerted}{bg=mLightBrown!15}
+%\setbeamercolor{block title example}{bg=UUGreen,fg=palette primary.fg}
+%\setbeamercolor{block body example}{bg=UUGreen!10}
+% \mybox is a rectangular box
+\usepackage{boxedminipage}
+\setlength\fboxrule{2pt}
+\setlength\fboxsep{2\fboxsep}
+\newcommand\mybox[3][\textwidth]{
+  {\color{#2}
+    \begin{boxedminipage}{#1}
+      {\color{palette primary.bg} #3}
+    \end{boxedminipage}}%
+}   
+\usepackage{tcolorbox}
+\tcbset{arc=1mm,grow to left by=3mm,grow to right by=3mm,left=2mm}
+%\newenvironment{redbox}{%
+%	\begin{tcolorbox}[colback=UURed!15,colframe=UURed]}{%
+%	\end{tcolorbox}}
+%\newenvironment{greenbox}{%
+%	\begin{tcolorbox}[colback=UUGreen!15,colframe=UUGreen]}{%
+%	\end{tcolorbox}}
+\newenvironment{redbox}{%
+	\begin{tcolorbox}[colback=red!15,colframe=red]}{%
+	\end{tcolorbox}}
+\newenvironment{greenbox}{%
+	\begin{tcolorbox}[colback=DarkGreen!15,colframe=DarkGreen]}{%
+	\end{tcolorbox}}
+\newenvironment{graybox}{%
+	\begin{tcolorbox}[colback=mDarkTeal!5,colframe=mDarkTeal]}{%
+	\end{tcolorbox}}
+\newenvironment{orangebox}{%
+\begin{tcolorbox}[colback=mLightBrown!15,colframe=mLightBrown]}{%
+	\end{tcolorbox}}	
+
+
+\newcommand{\backupbegin}{
+	\newcounter{framenumberappendix}
+	\setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+	\addtocounter{framenumberappendix}{-\value{framenumber}}
+	\addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+

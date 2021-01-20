@@ -1,0 +1,62 @@
+\documentclass[10pt,english]{beamer}
+%\documentclass[english,handout]{beamer} % For handouts
+\input{metropolis_uu_preamble.tex}
+
+\title{Title}
+\subtitle{Subtitle}
+\date{Place 2017-xx-xx}
+\author{NN, Uppsala University}
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{uu_logo_vec.pdf}}
+\institute{Joint work with\dots}
+
+\begin{document}
+	
+\maketitle
+
+\section{Section 1}
+\begin{frame}{Textpos}
+	\begin{textblock}{0.3}(0,0)
+		\alert{Test} Note that the width of the box is given by the first argument and the position by the second; specified in ``textpos'' units, which are set according to paper width and height.
+	\end{textblock}
+\end{frame}
+\begin{frame}{References on page}
+	%This is a bit hacky, but works: use \strt[3ex] as below when the reference is short enough to fit on one line, to get a nicer vertical alignment
+	\scriptsize\articleref{\strt[3ex]A. Anderson}{Title}{Journal of Short Titles}{9(2):1--12, 2017}	
+	
+	\articleref{A. Anderson, B. Barry, and C. Carol}{A somewhat longer title of a paper}{Journal of Medium Long Titles}{9(2):1--12, 2017}
+	
+	\articleref{A. Anderson, B. Barry, and C. Carol}{A really really really long title of a paper, with a subtitle: The subtitle is also quite long, actually much longer than what is recommended}{Journal of Really Really Really Long Titles}{9(2):1--12, 2017}
+\end{frame}
+{\setbeamercolor{palette primary}{fg=white, bg=black}
+\begin{frame}[standout]
+	Take that!
+\end{frame}}
+
+\section{Section 2}
+\begin{frame}{Blocks}
+	\begin{block}{block}
+		Test
+	\end{block}		
+	\begin{alertblock}{alertblock}
+		Test
+	\end{alertblock}
+	\begin{exampleblock}{exampleblock}
+		Test
+	\end{exampleblock}
+\end{frame}
+\begin{frame}{Boxes}
+	\begin{center}
+		\mybox[0.5\textwidth]{UUBlue}{Hello world!}
+	\end{center}
+	
+	\mybox{mDarkTeal}{Goodbye!}
+\end{frame}
+%\footnotesize
+%\bibliographystyle{plain}
+%\bibliography{references}
+
+\end{document}
+
+
+%% Local Variables:
+%% End:
